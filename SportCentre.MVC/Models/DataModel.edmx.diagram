@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="525758d16ca54f4faf7984a7b0b149ba" Name="Diagram1" ZoomLevel="116">
+        <EntityTypeShape EntityType="SportCentreModel.Client" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Equipment" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Group" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Gym" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Inventory" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Lesson" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Membership" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Sport" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Subscription" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.Trainer" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <AssociationConnector Association="SportCentreModel.FK_Membership_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Equipment_Gym" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Equipment_Inventory" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Group_Sport" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Lesson_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Membership_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Gym_Sport" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Lesson_Gym" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Inventory_Sport" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Lesson_Trainer" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Membership_Subscription" ManuallyRouted="false" />
+        <AssociationConnector Association="SportCentreModel.FK_Trainer_Sport" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

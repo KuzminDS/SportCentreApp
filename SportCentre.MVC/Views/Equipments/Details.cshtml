@@ -1,0 +1,33 @@
+﻿@model SportCentre.MVC.Models.Equipment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Equipment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Gym.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gym.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inventory.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inventory.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+</p>
