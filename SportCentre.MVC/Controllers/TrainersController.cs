@@ -33,6 +33,8 @@ namespace SportCentre.MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Lessons = db.Lessons.Where(l => l.IdTrainer == trainer.Id);
             return View(trainer);
         }
 

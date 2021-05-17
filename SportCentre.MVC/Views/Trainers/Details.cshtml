@@ -1,7 +1,9 @@
 ﻿@model SportCentre.MVC.Models.Trainer
 
+
 @{
     ViewBag.Title = "Details";
+    var lessons = ViewBag.Lessons as IEnumerable<SportCentre.MVC.Models.Lesson>;
 }
 
 <h2>Details</h2>
@@ -43,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Sport.Name)
+            @Html.DisplayName("Sport name")
         </dt>
 
         <dd>
@@ -55,3 +57,48 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
 </p>
+
+<h4>Lessons</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Beginning")
+        </th>
+        <th>
+            @Html.DisplayName("Duration")
+        </th>
+        <th>
+            @Html.DisplayName("Group Name")
+        </th>
+        <th>
+            @Html.DisplayName("Gym Name")
+        </th>
+        <th>
+            @Html.DisplayName("Trainer last name")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in lessons)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beginning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gym.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trainer.LastName)
+            </td>
+        </tr>
+    }
+
+</table>
+

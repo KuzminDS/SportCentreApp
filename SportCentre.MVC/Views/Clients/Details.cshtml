@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Details";
+
+    var subscription = ViewBag.Subscription as SportCentre.MVC.Models.Subscription;
+    var lessons = ViewBag.Lessons as IEnumerable<SportCentre.MVC.Models.Lesson>;
 }
 
 <h2>Details</h2>
@@ -39,3 +42,76 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
 </p>
+
+<h4>Subscription</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Type")
+        </th>
+        <th>
+            @Html.DisplayName("Price")
+        </th>
+        <th>
+            @Html.DisplayName("Validity")
+        </th>
+        <th></th>
+    </tr>
+   
+    <tr>
+        <td>
+            @subscription.Type
+        </td>
+        <td>
+            @subscription.Price
+        </td>
+        <td>
+            @subscription.Validity
+        </td>
+    </tr>
+
+</table>
+
+<h4>Lessons</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Beginning")
+        </th>
+        <th>
+            @Html.DisplayName("Duration")
+        </th>
+        <th>
+            @Html.DisplayName("Group Name")
+        </th>
+        <th>
+            @Html.DisplayName("Gym Name")
+        </th>
+        <th>
+            @Html.DisplayName("Trainer last name")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in lessons)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beginning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gym.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trainer.LastName)
+            </td>
+        </tr>
+    }
+
+</table>

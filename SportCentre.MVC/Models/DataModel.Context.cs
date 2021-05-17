@@ -12,7 +12,10 @@ namespace SportCentre.MVC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    using System.Collections.Generic;
+
     public partial class SportCentreEntities : DbContext
     {
         public SportCentreEntities()
@@ -35,5 +38,21 @@ namespace SportCentre.MVC.Models
         public virtual DbSet<Sport> Sports { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
+        public virtual DbSet<View_TrainerSport_Updatable> View_TrainerSport_Updatable { get; set; }
+    
+        public virtual IEnumerable<Client> GetClientsBySubscription(string subscription)
+        {
+            return Memberships.Where(m => m.Subscription.Type == subscription).Select(m => m.Client);
+        }
+    
+        public virtual IEnumerable<Lesson> GetLessonsBySport(string sportName)
+        {
+            return Lessons.Where(l => l.Group.Sport.Name == sportName);
+        }
+    
+        public virtual IEnumerable<Trainer> GetTrainersBySport(string sportName)
+        {
+            return Trainers.Where(t => t.Sport.Name == sportName);
+        }
     }
 }

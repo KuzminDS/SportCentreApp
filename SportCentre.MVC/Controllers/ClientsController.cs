@@ -32,6 +32,12 @@ namespace SportCentre.MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            var membership = db.Memberships.FirstOrDefault(m => m.IdClient == client.Id);
+            var group = membership.Group;
+
+            ViewBag.Subscription =  membership.Subscription;
+            ViewBag.Lessons = group.Lessons;
             return View(client);
         }
 

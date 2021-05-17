@@ -97,6 +97,20 @@
           <Property Name="IdSport" Type="int" />
           <Property Name="Salary" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SportCentre.dbo.View_TrainerSport_Updatable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_TrainerSport_Updatable">
+          <Key>
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Equipment_Gym">
           <End Role="Gym" Type="Self.Gym" Multiplicity="0..1" />
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
@@ -241,6 +255,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetClientsBySubscription" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Subscription" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetLessonsBySport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SportName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetTrainersBySport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SportName" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="SportCentreModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
@@ -252,6 +275,14 @@
           <EntitySet Name="Sport" EntityType="Self.Sport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_TrainerSport_Updatable" EntityType="Self.View_TrainerSport_Updatable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_TrainerSport_Updatable].[FirstName] AS [FirstName], 
+    [View_TrainerSport_Updatable].[LastName] AS [LastName], 
+    [View_TrainerSport_Updatable].[Age] AS [Age], 
+    [View_TrainerSport_Updatable].[Name] AS [Name]
+    FROM [dbo].[View_TrainerSport_Updatable] AS [View_TrainerSport_Updatable]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Equipment_Gym" Association="Self.FK_Equipment_Gym">
             <End Role="Gym" EntitySet="Gym" />
             <End Role="Equipment" EntitySet="Equipment" />
@@ -422,6 +453,18 @@
           <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Trainer" FromRole="Trainer" ToRole="Lesson" />
           <NavigationProperty Name="Sport" Relationship="Self.FK_Trainer_Sport" FromRole="Trainer" ToRole="Sport" />
         </EntityType>
+        <EntityType Name="View_TrainerSport_Updatable">
+          <Key>
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Membership_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
@@ -577,6 +620,7 @@
           <EntitySet Name="Sports" EntityType="Self.Sport" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
           <EntitySet Name="Trainers" EntityType="Self.Trainer" />
+          <EntitySet Name="View_TrainerSport_Updatable" EntityType="Self.View_TrainerSport_Updatable" />
           <AssociationSet Name="FK_Membership_Client" Association="Self.FK_Membership_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Membership" EntitySet="Memberships" />
@@ -625,7 +669,47 @@
             <End Role="Sport" EntitySet="Sports" />
             <End Role="Trainer" EntitySet="Trainers" />
           </AssociationSet>
+          <FunctionImport Name="GetClientsBySubscription" ReturnType="Collection(SportCentreModel.GetClientsBySubscription_Result)">
+            <Parameter Name="Subscription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetLessonsBySport" ReturnType="Collection(SportCentreModel.GetLessonsBySport_Result)">
+            <Parameter Name="SportName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetTrainersBySport" ReturnType="Collection(SportCentreModel.GetTrainersBySport_Result)">
+            <Parameter Name="SportName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetClientsBySubscription_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Age" Nullable="false" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="Int32" Name="IdGroup" Nullable="true" />
+          <Property Type="Int32" Name="IdClient" Nullable="false" />
+          <Property Type="Int32" Name="IdSubscription" Nullable="true" />
+          <Property Type="DateTime" Name="ExpirationDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Id2" Nullable="false" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Validity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetLessonsBySport_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="IdGroup" Nullable="true" />
+          <Property Type="Time" Name="Beginning" Nullable="true" />
+          <Property Type="Int32" Name="Duration" Nullable="true" />
+          <Property Type="Int32" Name="IdTrainer" Nullable="true" />
+          <Property Type="Int32" Name="IdGym" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTrainersBySport_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Age" Nullable="false" />
+          <Property Type="Int32" Name="IdSport" Nullable="true" />
+          <Property Type="Int32" Name="Salary" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -734,6 +818,59 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="View_TrainerSport_Updatable">
+            <EntityTypeMapping TypeName="SportCentreModel.View_TrainerSport_Updatable">
+              <MappingFragment StoreEntitySet="View_TrainerSport_Updatable">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetClientsBySubscription" FunctionName="SportCentreModel.Store.GetClientsBySubscription">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportCentreModel.GetClientsBySubscription_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Id1" ColumnName="Id1" />
+                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdSubscription" ColumnName="IdSubscription" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Id2" ColumnName="Id2" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Validity" ColumnName="Validity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetLessonsBySport" FunctionName="SportCentreModel.Store.GetLessonsBySport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportCentreModel.GetLessonsBySport_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+                <ScalarProperty Name="Beginning" ColumnName="Beginning" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="IdTrainer" ColumnName="IdTrainer" />
+                <ScalarProperty Name="IdGym" ColumnName="IdGym" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTrainersBySport" FunctionName="SportCentreModel.Store.GetTrainersBySport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportCentreModel.GetTrainersBySport_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="IdSport" ColumnName="IdSport" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

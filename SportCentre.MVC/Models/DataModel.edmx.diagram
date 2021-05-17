@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="525758d16ca54f4faf7984a7b0b149ba" Name="Diagram1" ZoomLevel="116">
+      <Diagram DiagramId="cc4ee62d1c9d4137a38b7488ba2a73b3" Name="Diagram1">
         <EntityTypeShape EntityType="SportCentreModel.Client" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SportCentreModel.Equipment" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="SportCentreModel.Group" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="SportCentreModel.Sport" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SportCentreModel.Subscription" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SportCentreModel.Trainer" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportCentreModel.View_TrainerSport_Updatable" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="SportCentreModel.FK_Membership_Client" ManuallyRouted="false" />
         <AssociationConnector Association="SportCentreModel.FK_Equipment_Gym" ManuallyRouted="false" />
         <AssociationConnector Association="SportCentreModel.FK_Equipment_Inventory" ManuallyRouted="false" />

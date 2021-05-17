@@ -136,9 +136,11 @@
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Controllers\MembershipsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SportsController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\TrainersController.cs" />
+    <Compile Include="Controllers\View_TrainerSport_UpdatableController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +165,15 @@
     <Compile Include="Models\Equipment.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetClientsBySubscription_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetLessonsBySport_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetTrainersBySport_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Group.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -185,6 +196,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trainer.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_TrainerSport_Updatable.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -293,6 +307,14 @@
     <Content Include="Views\Equipments\Index.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Modal.cshtml" />
+    <Content Include="Views\View_TrainerSport_Updatable\Create.cshtml" />
+    <Content Include="Views\View_TrainerSport_Updatable\Delete.cshtml" />
+    <Content Include="Views\View_TrainerSport_Updatable\Details.cshtml" />
+    <Content Include="Views\View_TrainerSport_Updatable\Edit.cshtml" />
+    <Content Include="Views\View_TrainerSport_Updatable\Index.cshtml" />
+    <Content Include="Views\Reports\ClientsBySubscription.cshtml" />
+    <Content Include="Views\Reports\LessonsBySport.cshtml" />
+    <Content Include="Views\Reports\TrainersBySport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
